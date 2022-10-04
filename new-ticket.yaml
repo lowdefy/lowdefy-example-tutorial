@@ -1,0 +1,136 @@
+id: new-ticket
+type: PageHeaderMenu
+
+requests:
+  - id: save_new_ticket
+    type: KnexRaw
+    connectionId: knex
+    payload:
+      _state: true
+    properties:
+      query: |
+        INSERT INTO newticket (
+        ticket_title,
+        ticket_type,
+        ticket_description,
+        operating_system,
+        confirm_restart,
+        created_date)
+        VALUES(?,?,?,?,?,?)
+      parameters:
+        - _payload: ticket_title
+        - _payload: ticket_type
+        - _payload: ticket_description
+        - _payload: operating_system
+        - _payload: confirm_restart
+        - _date: now
+
+  - id: get_OS
+    type: AxiosHttp
+    connectionId: my_api
+
+events:
+  onInit:
+    - id: get_OS
+      type: Request
+      params: get_OS
+properties:
+  title: New Ticket # The title in the browser tab.
+layout:
+  contentJustify: center # Center the contents of the page.
+blocks:
+  - id: content_card
+    type: Card
+    layout:
+      size: 800 # Set the size of the card so it does not fill the full screen.
+      contentGutter: 16 # Make a 16px gap between all blocks in this card.
+    blocks:
+      - id: page_heading
+        type: Title
+        properties:
+          content: Log a ticket # Change the title on the page.
+          level: 3 # Make the title a little smaller (an html `<h3>`).
+
+      - id: ticket_title
+        type: TextInput
+        required: true
+        properties:
+          title: Title
+      - id: ticket_type
+        type: ButtonSelector
+        properties:
+          title: Ticket type
+          options: # Set the allowed options
+            - Feature request
+            - Bug report
+            - Question
+      - id: ticket_description
+        type: TextArea
+        properties:
+          title: Description
+      - id: confirm_restart
+        type: ButtonSelector
+        visible: # Test if block should be visible to the user
+          _eq: # Equals operator
+            - _state: ticket_type # Get the ticket_type value from state.
+            - Bug report
+        validate:
+          # Show a warning that shows before validate is called
+          # and does not block Validate action.
+          - status: warning
+            message: If you did not restart your device, we will ask you to restart it.
+            pass:
+              _eq:
+                - _state: confirm_restart
+                - Yes
+        properties:
+          title: Did you restart your device?
+          label:
+            colon: false # Hide the label colon
+          options:
+            - Yes
+            - No
+      - id: operating_system
+        type: Selector
+        properties:
+          title: Operating System
+          placeholder: Select your operating system
+          options:
+            _request: get_OS.data.body
+
+      - id: reset_button
+        type: Button
+        layout:
+          span: 12 # Set the size of the button (span 12 of 24 columns)
+        properties:
+          title: Reset
+          block: true # Make the button fill all the space available to it
+          type: default # Make the button a plain button
+          icon: AiOutlineClear
+        events:
+          onClick:
+            - id: reset
+              type: Reset
+
+      - id: submit_button
+        type: Button
+        layout:
+          span: 12
+        properties:
+          title: Submit
+          block: true
+          type: primary # Make the button a primary button with color
+          icon: AiOutlineSave
+        events:
+          onClick:
+            - id: validate
+              type: Validate
+            - id: save_new_ticket
+              type: Request
+              params: save_new_ticket
+            # - id: reset
+            #   type: Reset
+            # - id: redirect_view
+            #   type: Link
+            #   params:
+            #     pageId: view-tickets

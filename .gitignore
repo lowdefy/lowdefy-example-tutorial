@@ -1,0 +1,10 @@
+
+.DS_Store
+**/.lowdefy/**
+**/.serverless/**
+**/.env
+**/node_modules/**
+**/dist/**
+!app/.lowdefy/cli.json
+!app/**/dist/**
+**/coverage/**
