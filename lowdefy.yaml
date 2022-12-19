@@ -1,4 +1,4 @@
-lowdefy: 4.0.0-alpha.25
+lowdefy: 4.0.0-alpha.37
 name: Lowdefy starter
 
 menus:
@@ -82,7 +82,7 @@ connections:
         filename:
           _secret: SQLITE_FILENAME
 
-  - id: my_api
+  - id: dummy_api
     type: AxiosHttp
     properties:
-      baseURL: https://lowdefy.app.n8n.cloud/webhook/lowdefy-tutorial-operating-systems
+      baseURL: https://dummyjson.com/products/
