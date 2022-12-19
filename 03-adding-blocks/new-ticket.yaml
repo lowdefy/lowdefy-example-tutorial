@@ -1,0 +1,60 @@
+id: new-ticket
+type: PageHeaderMenu
+
+properties:
+  title: New Ticket # The title in the browser tab.
+layout:
+  contentJustify: center # Center the contents of the page.
+blocks:
+  - id: content_card
+    type: Card
+    layout:
+      size: 800 # Set the size of the card so it does not fill the full screen.
+      contentGutter: 16 # Make a 16px gap between all blocks in this card.
+    blocks:
+      - id: page_heading
+        type: Title
+        properties:
+          content: Log a ticket # Change the title on the page.
+          level: 3 # Make the title a little smaller (an html `<h3>`).
+
+      - id: ticket_title
+        type: TextInput
+        required: true
+        properties:
+          title: Title
+
+      - id: ticket_type
+        type: ButtonSelector
+        required: true
+        properties:
+          title: Ticket type
+          options: # Set the allowed options
+            - Suggestion
+            - Complaint
+            - Question
+
+      - id: ticket_description
+        type: TextArea
+        properties:
+          title: Description
+
+      - id: reset_button
+        type: Button
+        layout:
+          span: 12 # Set the size of the button (span 12 of 24 columns)
+        properties:
+          title: Reset
+          block: true # Make the button fill all the space available to it
+          type: default # Make the button a plain button
+          icon: AiOutlineClear
+
+      - id: submit_button
+        type: Button
+        layout:
+          span: 12
+        properties:
+          title: Submit
+          block: true
+          type: primary # Make the button a primary button with color
+          icon: AiOutlineSave
