@@ -1,0 +1,72 @@
+id: view-tickets
+type: PageHeaderMenu
+
+requests:
+  - id: fetch_tickets
+    type: KnexRaw
+    connectionId: knex
+    properties:
+      query: SELECT * FROM "tickets"
+
+events:
+  onMount:
+    - id: fetch_tickets
+      type: Request
+      params: fetch_tickets
+
+properties:
+  title: View tickets # The title in the browser tab.
+layout:
+  contentJustify: center # Center the contents of the page.
+blocks:
+  - id: content_card
+    type: Card
+    layout:
+      size: 1000 # Set the size of the card so it does not fill the full screen.
+      contentGutter: 28 # Make a 28px gap between all blocks in this card.
+    blocks:
+      - id: page_heading
+        type: Title
+        properties:
+          content: View Tickets # Change the title on the page.
+          level: 3 # Make the title a little smaller (an html `<h3>`).
+
+      - id: view_tickets_table
+        type: AgGridBalham
+        properties:
+          enableCellTextSelection: true
+          pagination: true
+          rowData:
+            _request: fetch_tickets
+          defaultColDef:
+            sortable: true
+            resizable: true
+            filter: true
+          columnDefs:
+            - headerName: Title
+              field: ticket_title
+              width: 200
+              filter: false
+            - headerName: Date Created
+              field: created_date
+              width: 140
+              cellRenderer:
+                _function:
+                  __nunjucks:
+                    template: |
+                      {{ created_date | date('DD MMM YYYY') }}
+                    on:
+                      created_date:
+                        __args: 0.data.created_date
+            - headerName: Ticket Type
+              field: ticket_type
+              width: 150
+              filter: false
+            - headerName: Product
+              field: product
+              width: 200
+              filter: false
+            - headerName: Ticket Description
+              field: ticket_description
+              width: 250
+              filter: false

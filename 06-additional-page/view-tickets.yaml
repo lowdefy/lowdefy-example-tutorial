@@ -6,7 +6,7 @@ requests:
     type: KnexRaw
     connectionId: knex
     properties:
-      query: SELECT * FROM "newticket"
+      query: SELECT * FROM "tickets"
 
 events:
   onMount:
@@ -62,11 +62,11 @@ blocks:
               field: ticket_type
               width: 150
               filter: false
+            - headerName: Product
+              field: product
+              width: 200
+              filter: false
             - headerName: Ticket Description
               field: ticket_description
               width: 250
-              filter: false
-            - headerName: Operating System
-              field: operating_system
-              width: 200
               filter: false
