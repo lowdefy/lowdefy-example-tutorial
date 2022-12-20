@@ -1,6 +1,20 @@
 lowdefy: 4.0.0-alpha.37
 name: Lowdefy starter
 
+connections:
+  - id: knex
+    type: Knex
+    properties:
+      client: sqlite
+      connection:
+        filename:
+          _secret: SQLITE_FILENAME
+
+  - id: dummy_api
+    type: AxiosHttp
+    properties:
+      baseURL: https://dummyjson.com
+
 menus:
   - id: default
     links:
@@ -72,17 +86,3 @@ pages:
               type: secondary
               content: |
                 Made by a Lowdefy 🤖
-
-connections:
-  - id: knex
-    type: Knex
-    properties:
-      client: sqlite
-      connection:
-        filename:
-          _secret: SQLITE_FILENAME
-
-  - id: dummy_api
-    type: AxiosHttp
-    properties:
-      baseURL: https://dummyjson.com/products/

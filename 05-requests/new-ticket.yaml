@@ -16,14 +16,26 @@ requests:
         product,
         purchase_in_last_month,
         created_date)
-        VALUES(?,?,?,?,?,?)
+        VALUES(
+        :ticket_title,
+        :ticket_type,
+        :ticket_description,
+        :product,
+        :purchase_in_last_month,
+        :created_date)
       parameters:
-        - _payload: ticket_title
-        - _payload: ticket_type
-        - _payload: ticket_description
-        - _payload: product
-        - _payload: purchase_in_last_month
-        - _date: now
+        ticket_title:
+          _payload: ticket_title
+        ticket_type:
+          _payload: ticket_type
+        ticket_description:
+          _payload: ticket_description
+        product:
+          _payload: product
+        purchase_in_last_month:
+          _payload: purchase_in_last_month
+        created_date:
+          _date: now
 
   - id: get_products
     type: AxiosHttp
