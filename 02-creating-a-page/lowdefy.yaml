@@ -1,4 +1,4 @@
-lowdefy: 4.0.0-alpha.25
+lowdefy: 4.0.0-alpha.37
 name: Lowdefy starter
 
 menus:
@@ -16,16 +16,9 @@ menus:
           icon: AiOutlineAlert
           title: New ticket
         pageId: new-ticket
-      - id: view-tickets
-        type: MenuLink
-        properties:
-          icon: AiOutlineDatabase
-          title: View tickets
-        pageId: view-tickets
 
 pages:
   - _ref: new-ticket.yaml
-  - _ref: view-tickets.yaml
 
   - id: welcome
     type: PageHeaderMenu
@@ -72,17 +65,3 @@ pages:
               type: secondary
               content: |
                 Made by a Lowdefy 🤖
-
-connections:
-  - id: knex
-    type: Knex
-    properties:
-      client: sqlite
-      connection:
-        filename:
-          _secret: SQLITE_FILENAME
-
-  - id: my_api
-    type: AxiosHttp
-    properties:
-      baseURL: https://lowdefy.app.n8n.cloud/webhook/lowdefy-tutorial-operating-systems

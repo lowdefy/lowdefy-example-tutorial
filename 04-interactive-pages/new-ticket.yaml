@@ -1,0 +1,91 @@
+id: new-ticket
+type: PageHeaderMenu
+
+properties:
+  title: New Ticket # The title in the browser tab.
+layout:
+  contentJustify: center # Center the contents of the page.
+blocks:
+  - id: content_card
+    type: Card
+    layout:
+      size: 800 # Set the size of the card so it does not fill the full screen.
+      contentGutter: 16 # Make a 16px gap between all blocks in this card.
+    blocks:
+      - id: page_heading
+        type: Title
+        properties:
+          content: Log a ticket # Change the title on the page.
+          level: 3 # Make the title a little smaller (an html `<h3>`).
+
+      - id: ticket_title
+        type: TextInput
+        required: true
+        properties:
+          title: Title
+
+      - id: ticket_type
+        type: ButtonSelector
+        required: true
+        properties:
+          title: Ticket type
+          options: # Set the allowed options
+            - Suggestion
+            - Complaint
+            - Question
+
+      - id: ticket_description
+        type: TextArea
+        properties:
+          title: Description
+
+      - id: purchase_in_last_month
+        type: ButtonSelector
+        visible: # Test if block should be visible to the user
+          _eq: # Equals operator
+            - _state: ticket_type # Get the ticket_type value from state.
+            - Complaint
+        validate:
+          # Show a warning that shows before validate is called
+          # and does not block Validate action.
+          - status: warning
+            message: If you have had the product for over a month, we may not be able to replace it.
+            pass:
+              _eq:
+                - _state: purchase_in_last_month
+                - Yes
+        properties:
+          title: Did you purchase this product within the last month?
+          label:
+            colon: false # Hide the label colon
+          options:
+            - Yes
+            - No
+
+      - id: reset_button
+        type: Button
+        layout:
+          span: 12 # Set the size of the button (span 12 of 24 columns)
+        properties:
+          title: Reset
+          block: true # Make the button fill all the space available to it
+          type: default # Make the button a plain button
+          icon: AiOutlineClear
+        events:
+          onClick:
+            - id: reset
+              type: Reset
+
+      - id: submit_button
+        type: Button
+        layout:
+          span: 12
+        properties:
+          title: Submit
+          block: true
+          type: primary # Make the button a primary button with color
+          icon: AiOutlineSave
+        events:
+          onClick:
+            - id: validate
+              type: Validate
