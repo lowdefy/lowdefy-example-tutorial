@@ -1,7 +1,31 @@
 lowdefy: 4.0.0-alpha.37
 name: Lowdefy starter
 
+connections:
+  - id: dummy_api
+    type: AxiosHttp
+    properties:
+      baseURL: https://dummyjson.com
+
+menus:
+  - id: default
+    links:
+      - id: welcome
+        type: MenuLink
+        properties:
+          icon: AiOutlineHome
+          title: Home
+        pageId: welcome
+      - id: new-ticket
+        type: MenuLink
+        properties:
+          icon: AiOutlineAlert
+          title: New ticket
+        pageId: new-ticket
+
 pages:
+  - _ref: new-ticket.yaml
+
   - id: welcome
     type: PageHeaderMenu
     properties:
@@ -30,14 +54,14 @@ pages:
                         type: Button
                         properties:
                           size: large
-                          title: Join Lowdefy on Discord
+                          title: Let's build something
                           color: '#1890ff'
                         events:
                           onClick:
                             - id: link_to_docs
                               type: Link
                               params:
-                                url: https://discord.gg/QQY9eJ7A2D
+                                url: https://docs.lowdefy.com
                                 newTab: true
       footer:
         blocks:
