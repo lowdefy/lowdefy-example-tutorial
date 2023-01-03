@@ -56,8 +56,7 @@ blocks:
                     template: |
                       {{ created_date | date('DD MMM YYYY') }}
                     on:
-                      created_date:
-                        __args: 0.data.created_date
+                      __args: 0.data
             - headerName: Ticket Type
               field: ticket_type
               width: 150
