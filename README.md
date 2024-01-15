@@ -2,7 +2,7 @@
 
 <img src="https://lowdefy.com/images/logo.svg" width="400" height="150">
 
-Welcome to the Lowdefy [Tutorial](<(https://docs.lowdefy.com/tutorial-start)>) repository! Lowdefy is an open-source, low-code framework for building web apps, dashboards, and more. This repository serves as your starting point to explore and build with Lowdefy.
+Welcome to the [Lowdefy Tutorial](https://docs.lowdefy.com/tutorial-start "click here to follow our our guided tutorial") repository! Lowdefy is an open-source, low-code framework for building web apps, dashboards, and more. This repository serves as your starting point to explore and build with Lowdefy.
 
 ## 🧑‍💻 Introduction
 
