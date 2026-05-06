@@ -6,7 +6,16 @@ requests:
     type: KnexRaw
     connectionId: knex
     payload:
-      _state: true
+      ticket_title:
+        _state: ticket_title
+      ticket_type:
+        _state: ticket_type
+      ticket_description:
+        _state: ticket_description
+      product:
+        _state: product
+      purchase_in_last_month:
+        _state: purchase_in_last_month
     properties:
       query: |
         INSERT INTO tickets (
@@ -40,6 +49,8 @@ requests:
   - id: get_products
     type: AxiosHttp
     connectionId: dummy_api
+    properties:
+      url: /products
 
 events:
   onMount:
@@ -50,13 +61,13 @@ events:
 properties:
   title: New Ticket # The title in the browser tab.
 layout:
-  contentJustify: center # Center the contents of the page.
+  justify: center # Center the contents of the page.
 blocks:
   - id: content_card
     type: Card
     layout:
       size: 800 # Set the size of the card so it does not fill the full screen.
-      contentGutter: 16 # Make a 16px gap between all blocks in this card.
+      gap: 16 # Make a 16px gap between all blocks in this card.
     blocks:
       - id: page_heading
         type: Title
@@ -75,7 +86,8 @@ blocks:
         required: true
         properties:
           title: Ticket type
-          options: # Set the allowed options
+          options:
+            # Set the allowed options
             - Suggestion
             - Complaint
             - Question
@@ -84,7 +96,8 @@ blocks:
         type: Selector
         properties:
           title: Product
-          options: # Set the allowed options QUERY FROM API
+          options:
+            # Set the allowed options QUERY FROM API
             _array.map:
               - _request: get_products.data.products
               - _function:
@@ -97,8 +110,10 @@ blocks:
 
       - id: purchase_in_last_month
         type: ButtonSelector
-        visible: # Test if block should be visible to the user
-          _eq: # Equals operator
+        visible:
+          # Test if block should be visible to the user
+          _eq:
+            # Equals operator
             - _state: ticket_type # Get the ticket_type value from state.
             - Complaint
         validate:
@@ -125,7 +140,6 @@ blocks:
         properties:
           title: Reset
           block: true # Make the button fill all the space available to it
-          type: default # Make the button a plain button
           icon: AiOutlineClear
         events:
           onClick:
@@ -139,7 +153,8 @@ blocks:
         properties:
           title: Submit
           block: true
-          type: primary # Make the button a primary button with color
+          color: primary
+          variant: solid
           icon: AiOutlineSave
         events:
           onClick:

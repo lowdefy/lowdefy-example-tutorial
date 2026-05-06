@@ -1,4 +1,4 @@
-lowdefy: 4.0.0-alpha.37
+lowdefy: 5.2.0
 name: Lowdefy starter
 
 pages:
@@ -6,7 +6,7 @@ pages:
     type: PageHeaderMenu
     properties:
       title: Welcome
-    areas:
+    slots:
       content:
         justify: center
         blocks:
@@ -23,7 +23,7 @@ pages:
                   icon:
                     name: AiOutlineHeart
                     color: '#f00'
-                areas:
+                slots:
                   extra:
                     blocks:
                       - id: docs_button

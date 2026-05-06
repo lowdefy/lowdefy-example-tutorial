@@ -1,11 +1,12 @@
-lowdefy: 4.0.0-alpha.37
+lowdefy: 5.2.0
 name: Lowdefy starter
 
 connections:
   - id: knex
     type: Knex
     properties:
-      client: sqlite
+      client: better-sqlite3
+      useNullAsDefault: true
       connection:
         filename:
           _secret: SQLITE_FILENAME
@@ -45,7 +46,7 @@ pages:
     type: PageHeaderMenu
     properties:
       title: Welcome
-    areas:
+    slots:
       content:
         justify: center
         blocks:
@@ -62,7 +63,7 @@ pages:
                   icon:
                     name: AiOutlineHeart
                     color: '#f00'
-                areas:
+                slots:
                   extra:
                     blocks:
                       - id: docs_button
