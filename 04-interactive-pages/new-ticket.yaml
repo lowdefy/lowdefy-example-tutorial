@@ -4,13 +4,13 @@ type: PageHeaderMenu
 properties:
   title: New Ticket # The title in the browser tab.
 layout:
-  contentJustify: center # Center the contents of the page.
+  justify: center # Center the contents of the page.
 blocks:
   - id: content_card
     type: Card
     layout:
       size: 800 # Set the size of the card so it does not fill the full screen.
-      contentGutter: 16 # Make a 16px gap between all blocks in this card.
+      gap: 16 # Make a 16px gap between all blocks in this card.
     blocks:
       - id: page_heading
         type: Title
@@ -69,7 +69,6 @@ blocks:
         properties:
           title: Reset
           block: true # Make the button fill all the space available to it
-          type: default # Make the button a plain button
           icon: AiOutlineClear
         events:
           onClick:
@@ -83,7 +82,8 @@ blocks:
         properties:
           title: Submit
           block: true
-          type: primary # Make the button a primary button with color
+          color: primary
+          variant: solid
           icon: AiOutlineSave
         events:
           onClick:
